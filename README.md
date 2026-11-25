@@ -1,7 +1,7 @@
 # Secured SOHO Network & Socket Programming Lab (In Progress)
 
 ## Goal of this lab:
-- To gain understanding of socket programming
+- To gain an understanding of socket programming
 - To demostrate how to set up a simple network topology with a few security measures in place.
 
 ## Tools used:

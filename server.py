@@ -19,14 +19,20 @@ def client_handler(sock: socket, addr: tuple):
 
     requireService = True
 
-    while requireService:
+    try:
+        while requireService:
 
-        s = sock.recv(1024).decode().rstrip()
-        print("(" + addr[0] + ") message: ", s)
+            s = sock.recv(1024).decode().rstrip()
+            print("(" + addr[0] + ") message: ", s)
 
-        if s == 'quit':
-            response_code(sock, 220, "SUCCESSFUL")
-            requireService = False
+            if s == 'quit':
+                response_code(sock, 220, "SUCCESSFUL")
+                requireService = False
+    
+    except KeyboardInterrupt:
+        print(addr, ' client is done for')
+    finally:
+        sock.close()
 
 
     print(addr, ' is disconnected')
@@ -47,8 +53,8 @@ def start_server():
         acceptSoc, addr = sock.accept()
 
         newThread = Thread(target=client_handler, args=(acceptSoc, addr))
-        newThread.run()
-        # newThread.join()
+        newThread.start()
+        newThread.join()
 
     sock.close()
 
